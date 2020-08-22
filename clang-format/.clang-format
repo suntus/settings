@@ -1,14 +1,214 @@
 ---
-BasedOnStyle: Google
-UseTab: Never
-IndentWidth: 4
-TabWidth: 4
-ContinuationIndentWidth: 4
-AlignTrailingComments: true
-ColumnLimit: 80
-AllowShortLoopsOnASingleLine: false
-AllowShortIfStatementsOnASingleLine: false
+Language: Cpp
+BasedOnStyle:  Google
+AccessModifierOffset: -1
+AlignAfterOpenBracket: Align
+AlignConsecutiveMacros: false
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: false
 
+# 使用\换行后的新行，反斜杠\靠左
+AlignEscapedNewlines: Left
+AlignOperands: true
+
+# 尽量对齐结尾注释
+AlignTrailingComments: true
+
+# true:如果函数参数没办法跟函数名同一行，就把所有参数都放到下一行，而不是留一个参数跟函数名
+# 同一行(忽略掉BinPackArguments:true)。
+AllowAllArgumentsOnNextLine: false
+AllowAllConstructorInitializersOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# 不允许单行block
+AllowShortBlocksOnASingleLine: Never
+# 不允许单行一个case
+AllowShortCaseLabelsOnASingleLine: false
+# 不允许单行函数
+AllowShortFunctionsOnASingleLine: None
+# 只有空lambdas才允许单行
+AllowShortLambdasOnASingleLine: Empty
+# 不允许单行if
+AllowShortIfStatementsOnASingleLine: Never
+# 不允许单行循环
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: true
+AlwaysBreakTemplateDeclarations: Yes
+
+# 所有的函数调用的参数一个挨一个，而不是都放到一行或者一行一个参数，就是一行尽量放多个
+BinPackArguments: true
+# 所有的函数声明的参数一个挨一个，而不是都放到一行或者一行一个参数，就是一行尽量放多个
+BinPackParameters: true
+
+# 大括号不跟函数同一行,
 BreakBeforeBraces: Linux
+# BreakBeforeBraces: Custom
+# BraceWrapping:
+#   AfterCaseLabel: false
+#   AfterClass: false
+#   AfterControlStatement: false
+#   AfterEnum: false
+#   AfterFunction: true
+#   AfterNamespace: false
+#   AfterObjCDeclaration: false
+#   AfterStruct: false
+#   AfterUnion: false
+#   AfterExternBlock: false
+#   BeforeCatch: false
+#   BeforeElse: false
+#   IndentBraces: false
+#   SplitEmptyFunction: false
+#   SplitEmptyRecord: false
+#   SplitEmptyNamespace: false
+
+BreakBeforeBinaryOperators: true
+BreakBeforeInheritanceComma: false
+BreakInheritanceList: BeforeColon
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializersBeforeComma: false
+BreakConstructorInitializers: BeforeColon
+BreakAfterJavaFieldAnnotations: false
+BreakStringLiterals: true
+ColumnLimit: 80
+CommentPragmas: "^ IWYU pragma:"
+CompactNamespaces: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+ConstructorInitializerIndentWidth: 4
+ContinuationIndentWidth: 4
+# new int[3]{1,2,3}; 大括号中元素的两边没有空格，不是 new int[3]{ 1,2,3 };
+Cpp11BracedListStyle: true
+DeriveLineEnding: true
+DerivePointerAlignment: true
+DisableFormat: false
+ExperimentalAutoDetectBinPacking: false
+FixNamespaceComments: true
+
+# 将foreach看做loop，而不是函数调用
+# 从下边这个命令中取到的
+# git grep -h '^#define [^[:space:]]*foreach[^[:space:]]*(' src/  \
+# | sed "s,^#define \([^[:space:]]*foreach[^[:space:]]*\)(.*$,  - \1,"  \
+# | sort | uniq
+ForEachMacros:
+  - cipher_suite_map_foreach
+  - xssl_groups_foreach
+  - xssl_sign_scheme_foreach
+  - xssl_supported_groups_foreach
+  - xssl_supported_sign_scheme_foreach
+
+# 不重新排序头文件
 SortIncludes: false
+# IncludeBlocks: Regroup
+# IncludeCategories:
+#   - Regex: '^<ext/.*\.h>'
+#     Priority: 2
+#     SortPriority: 0
+#   - Regex: '^<.*\.h>'
+#     Priority: 1
+#     SortPriority: 0
+#   - Regex: "^<.*"
+#     Priority: 2
+#     SortPriority: 0
+#   - Regex: ".*"
+#     Priority: 3
+#     SortPriority: 0
+# IncludeIsMainRegex: "([-_](test|unittest))?$"
+# IncludeIsMainSourceRegex: ""
+
+# 不缩进 case 标签
+IndentCaseLabels: false
+IndentGotoLabels: true
+IndentPPDirectives: None
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+MacroBlockBegin: ""
+MacroBlockEnd: ""
+# 最大空1行
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: None
+
+# clang-format格式化的时候，先把所有空格什么的都去掉，然后分析在哪里换行。换行符放在
+# 哪里，是用算法算出来的，算法根据各个penalty_设置算出一个最小的penalty值，就在这里
+# 进行换行。Penalty_的值并不是一个确切的值，只能代表一个可能性，简单来说，值越大，
+# clang-format越不会这样进行换行，比如说PenaltyBreakAssignment的值越大，clang-format
+# 越不会在赋值=前后进行换行操作
+# 参考：https://stackoverflow.com/questions/26635370/in-clang-format-what-do-the-penalties-do
+# 值越大，越不会在赋值=前后换行
+PenaltyBreakAssignment: 10
+# 值越大，越不会在第一个call参数前换行
+PenaltyBreakBeforeFirstCallParameter: 300
+# 值越大，越不会在注释中间换行
+PenaltyBreakComment: 10
+# 值越大，越不会在第一个<<前换行
+PenaltyBreakFirstLessLess: 0
+# 值越大，越不会在字符串中间换行
+PenaltyBreakString: 10
+# 值越大，越不会在template声明后换行
+PenaltyBreakTemplateDeclaration: 100
+# 值越大，越不会在超出的字符前后换行
+PenaltyExcessCharacter: 300
+# 值越大，越不会让返回值单独占一行
+PenaltyReturnTypeOnItsOwnLine: 600
+
+PointerAlignment: Left
+RawStringFormats:
+  - Language: Cpp
+    Delimiters:
+      - cc
+      - CC
+      - cpp
+      - Cpp
+      - CPP
+      - "c++"
+      - "C++"
+    CanonicalDelimiter: ""
+    BasedOnStyle: google
+  - Language: TextProto
+    Delimiters:
+      - pb
+      - PB
+      - proto
+      - PROTO
+    EnclosingFunctions:
+      - EqualsProto
+      - EquivToProto
+      - PARSE_PARTIAL_TEXT_PROTO
+      - PARSE_TEST_PROTO
+      - PARSE_TEXT_PROTO
+      - ParseTextOrDie
+      - ParseTextProtoOrDie
+    CanonicalDelimiter: ""
+    BasedOnStyle: google
+ReflowComments: true
+
+SortUsingDeclarations: true
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: true
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeParens: ControlStatements
+SpaceBeforeRangeBasedForLoopColon: true
+SpaceInEmptyBlock: false
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 2
+SpacesInAngles: false
+SpacesInConditionalStatement: false
+SpacesInContainerLiterals: true
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+SpaceBeforeSquareBrackets: false
+Standard: Auto
+StatementMacros:
+  - Q_UNUSED
+  - QT_REQUIRE_VERSION
+TabWidth: 8
+UseCRLF: false
+UseTab: Never
 ---
+
