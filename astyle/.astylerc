@@ -1,0 +1,54 @@
+#
+# usage: astyle --project=cpp-style-conf *.cpp,*.c,*.h
+# doc: astyle --help or http://astyle.sourceforge.net/astyle.html
+# use this to disable block formatted
+# // *INDENT-OFF*
+# #define FOO_DECLARE_int32_(name) \
+#         FOO_API_ extern ::Int32 FOO_FLAG(name)
+# // *INDENT-ON*
+
+--mode=c
+
+# 大括号风格
+--style=1tbs
+--attach-closing-while
+
+# 缩进
+--indent-after-parens
+--indent-labels
+--indent-preproc-block
+--indent-preproc-define
+--indent-col1-comments
+
+# padding
+--pad-oper
+--pad-header
+--unpad-paren
+
+# 变量定义
+--align-pointer=name
+--align-reference=name
+
+#
+--break-one-line-headers
+--add-braces
+
+# tab 4个空格替换
+--indent=spaces=4
+--convert-tabs
+
+--max-code-length=80
+--break-after-logical
+
+# 选项
+--recursive
+--suffix=none
+--exclude=deps
+--exclude=build
+--exclude=install
+--ignore-exclude-errors-x
+
+#
+--formatted
+--preserve-date
+--lineend=linux
