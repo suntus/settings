@@ -1,3 +1,4 @@
+# require clang-format 10.0.1
 ---
 Language: Cpp
 BasedOnStyle:  Google
