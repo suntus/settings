@@ -90,6 +90,19 @@ PenaltyBreakString: 10
 PenaltyExcessCharacter: 5
 # 不能忍受返回值单独一行
 PenaltyReturnTypeOnItsOwnLine: 1000
+# 会折叠注释
+ReflowComments: true
+
+
+# =====空格=======
+# 强制类型转换中间不加空格 (int *)a， 而不是(int *) a
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeParens: true
+Standard: Cpp03
+
 
 # =====杂项=======
 # 不重新排序头文件
