@@ -1,90 +1,108 @@
 # require clang-format 10.0.0
 ---
+# =====基础=======
+BasedOnStyle: Google
 Language: Cpp
-BasedOnStyle:  Google
-AccessModifierOffset: -1
-AlignAfterOpenBracket: Align
-AlignConsecutiveMacros: false
-AlignConsecutiveAssignments: false
-AlignConsecutiveDeclarations: false
+ColumnLimit: 80
 
-# 使用\换行后的新行，反斜杠\靠左
+# =====缩进=======
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 4
+# 是否缩进define，已经#这个符号是在行开头还是跟着缩进
+IndentPPDirectives: BeforeHash
+# 不缩进 case 标签
+IndentCaseLabels: false
+
+# =====对齐相关=======
+# 尽量靠左对齐所有的\，而不是把\统一放到最右
 AlignEscapedNewlines: Left
+# 按照第一个操作符对齐，而不是用换行缩进对齐
 AlignOperands: true
-
-# 尽量对齐结尾注释
+# 对齐尾部注释
 AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+# 挨着的多行define尽量对齐
+AlignConsecutiveMacros: true
 
-# true:如果函数参数没办法跟函数名同一行，就把所有参数都放到下一行，而不是留一个参数跟函数名
-# 同一行(忽略掉BinPackArguments:true)。
+# =====单行情况=======
 AllowAllArgumentsOnNextLine: false
-AllowAllConstructorInitializersOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: false
-
-# 不允许单行block
-AllowShortBlocksOnASingleLine: Never
-# 不允许单行一个case
+AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
-# 不允许单行函数
 AllowShortFunctionsOnASingleLine: None
-# 只有空lambdas才允许单行
-AllowShortLambdasOnASingleLine: Empty
-# 不允许单行if
 AllowShortIfStatementsOnASingleLine: Never
-# 不允许单行循环
 AllowShortLoopsOnASingleLine: false
+
+# =====换行=======
+# 函数返回类型不换行
 AlwaysBreakAfterDefinitionReturnType: None
 AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: true
-AlwaysBreakTemplateDeclarations: Yes
-
-# 所有的函数调用的参数一个挨一个，而不是都放到一行或者一行一个参数，就是一行尽量放多个
+# 不要在多行字符串最前边换行，特别是printf第一个参数比较长的话，可以防止都另起一行
+AlwaysBreakBeforeMultilineStrings: false
+# 多行参数的话，尽量一行里边多放，而不是每一行放一个
 BinPackArguments: true
-# 所有的函数声明的参数一个挨一个，而不是都放到一行或者一行一个参数，就是一行尽量放多个
 BinPackParameters: true
-
-# 大括号不跟函数同一行,
-BreakBeforeBraces: Linux
-# BreakBeforeBraces: Custom
-# BraceWrapping:
-#   AfterCaseLabel: false
-#   AfterClass: false
-#   AfterControlStatement: false
-#   AfterEnum: false
-#   AfterFunction: true
-#   AfterNamespace: false
-#   AfterObjCDeclaration: false
-#   AfterStruct: false
-#   AfterUnion: false
-#   AfterExternBlock: false
-#   BeforeCatch: false
-#   BeforeElse: false
-#   IndentBraces: false
-#   SplitEmptyFunction: false
-#   SplitEmptyRecord: false
-#   SplitEmptyNamespace: false
-
-BreakBeforeBinaryOperators: true
-BreakBeforeInheritanceComma: false
-BreakInheritanceList: BeforeColon
+# 换行的时候，把符号放到后续每一行的前边，
+# 类似:
+# a = b + c
+#     + d
+#     + e
+# 而不是:
+# a = b + c +
+#     d +
+#     e
+BreakBeforeBinaryOperators: NonAssignment
+# 大括号位置
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel: false
+  AfterClass: false
+  AfterControlStatement: false
+  AfterEnum: false
+  AfterFunction: true
+  AfterNamespace: false
+  AfterObjCDeclaration: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false
+  BeforeElse: false
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+# 三元操作符符号放前边
 BreakBeforeTernaryOperators: true
-BreakConstructorInitializersBeforeComma: false
-BreakConstructorInitializers: BeforeColon
-BreakAfterJavaFieldAnnotations: false
 BreakStringLiterals: true
-ColumnLimit: 80
-CommentPragmas: "^ IWYU pragma:"
-CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
-# new int[3]{1,2,3}; 大括号中元素的两边没有空格，不是 new int[3]{ 1,2,3 };
+
+# =====换行微调=======
+# clang-format格式化一个很长的行的时候，会计算出每个可能位置的penalty值，会在penalty
+# 最小的地方换行，所以下边这些就是调整这个数值的，数值越大，penalty值越大，
+# 越不会在这里换行。也是相对来说
+# 尽量不在赋值号前换行
+PenaltyBreakAssignment: 10
+# 尽量不在第一个调用参数前换行
+PenaltyBreakBeforeFirstCallParameter: 30
+PenaltyBreakComment: 10
+PenaltyBreakFirstLessLess: 0
+PenaltyBreakString: 10
+PenaltyExcessCharacter: 5
+# 不能忍受返回值单独一行
+PenaltyReturnTypeOnItsOwnLine: 1000
+
+# =====杂项=======
+# 不重新排序头文件
+SortIncludes: false
+# 最大空1行
+MaxEmptyLinesToKeep: 1
+# {}内部两侧没有空格
 Cpp11BracedListStyle: true
-DeriveLineEnding: true
-DerivePointerAlignment: true
-DisableFormat: false
-ExperimentalAutoDetectBinPacking: false
-FixNamespaceComments: true
+
+# 不继承*的靠近方式
+DerivePointerAlignment: false
+# 指针类型*总是靠近name，而不是type
+PointerAlignment: Right
 
 # 将foreach看做loop，而不是函数调用
 # 从下边这个命令中取到的
@@ -97,119 +115,5 @@ ForEachMacros:
   - xssl_sign_scheme_foreach
   - xssl_supported_groups_foreach
   - xssl_supported_sign_scheme_foreach
-
-# 不重新排序头文件
-SortIncludes: false
-# IncludeBlocks: Regroup
-# IncludeCategories:
-#   - Regex: '^<ext/.*\.h>'
-#     Priority: 2
-#     SortPriority: 0
-#   - Regex: '^<.*\.h>'
-#     Priority: 1
-#     SortPriority: 0
-#   - Regex: "^<.*"
-#     Priority: 2
-#     SortPriority: 0
-#   - Regex: ".*"
-#     Priority: 3
-#     SortPriority: 0
-# IncludeIsMainRegex: "([-_](test|unittest))?$"
-# IncludeIsMainSourceRegex: ""
-
-# 不缩进 case 标签
-IndentCaseLabels: false
-IndentGotoLabels: true
-IndentPPDirectives: None
-IndentWidth: 4
-IndentWrappedFunctionNames: false
-KeepEmptyLinesAtTheStartOfBlocks: false
-MacroBlockBegin: ""
-MacroBlockEnd: ""
-# 最大空1行
-MaxEmptyLinesToKeep: 1
-NamespaceIndentation: None
-
-# clang-format格式化的时候，先把所有空格什么的都去掉，然后分析在哪里换行。换行符放在
-# 哪里，是用算法算出来的，算法根据各个penalty_设置算出一个最小的penalty值，就在这里
-# 进行换行。Penalty_的值并不是一个确切的值，只能代表一个可能性，简单来说，值越大，
-# clang-format越不会这样进行换行，比如说PenaltyBreakAssignment的值越大，clang-format
-# 越不会在赋值=前后进行换行操作
-# 参考：https://stackoverflow.com/questions/26635370/in-clang-format-what-do-the-penalties-do
-# 值越大，越不会在赋值=前后换行
-PenaltyBreakAssignment: 10
-# 值越大，越不会在第一个call参数前换行
-PenaltyBreakBeforeFirstCallParameter: 300
-# 值越大，越不会在注释中间换行
-PenaltyBreakComment: 10
-# 值越大，越不会在第一个<<前换行
-PenaltyBreakFirstLessLess: 0
-# 值越大，越不会在字符串中间换行
-PenaltyBreakString: 10
-# 值越大，越不会在template声明后换行
-PenaltyBreakTemplateDeclaration: 100
-# 值越大，越不会在超出的字符前后换行
-PenaltyExcessCharacter: 300
-# 值越大，越不会让返回值单独占一行
-PenaltyReturnTypeOnItsOwnLine: 600
-
-PointerAlignment: Left
-RawStringFormats:
-  - Language: Cpp
-    Delimiters:
-      - cc
-      - CC
-      - cpp
-      - Cpp
-      - CPP
-      - "c++"
-      - "C++"
-    CanonicalDelimiter: ""
-    BasedOnStyle: google
-  - Language: TextProto
-    Delimiters:
-      - pb
-      - PB
-      - proto
-      - PROTO
-    EnclosingFunctions:
-      - EqualsProto
-      - EquivToProto
-      - PARSE_PARTIAL_TEXT_PROTO
-      - PARSE_TEST_PROTO
-      - PARSE_TEXT_PROTO
-      - ParseTextOrDie
-      - ParseTextProtoOrDie
-    CanonicalDelimiter: ""
-    BasedOnStyle: google
-ReflowComments: true
-
-SortUsingDeclarations: true
-SpaceAfterCStyleCast: false
-SpaceAfterLogicalNot: false
-SpaceAfterTemplateKeyword: true
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeCpp11BracedList: false
-SpaceBeforeCtorInitializerColon: true
-SpaceBeforeInheritanceColon: true
-SpaceBeforeParens: ControlStatements
-SpaceBeforeRangeBasedForLoopColon: true
-SpaceInEmptyBlock: false
-SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 2
-SpacesInAngles: false
-SpacesInConditionalStatement: false
-SpacesInContainerLiterals: true
-SpacesInCStyleCastParentheses: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-SpaceBeforeSquareBrackets: false
-Standard: Auto
-StatementMacros:
-  - Q_UNUSED
-  - QT_REQUIRE_VERSION
-TabWidth: 8
-UseCRLF: false
-UseTab: Never
 ---
 
