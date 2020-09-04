@@ -118,15 +118,15 @@ DerivePointerAlignment: false
 PointerAlignment: Right
 
 # 将foreach看做loop，而不是函数调用
-# 从下边这个命令中取到的
+# 从下边两个命令中取到的
 # git grep -h '^#define [^[:space:]]*foreach[^[:space:]]*(' src/  \
 # | sed "s,^#define \([^[:space:]]*foreach[^[:space:]]*\)(.*$,  - \1,"  \
 # | sort | uniq
+# git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' src/  \
+# | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - \1,"  \
+# | sort | uniq
 ForEachMacros:
   - cipher_suite_map_foreach
-  - xssl_groups_foreach
-  - xssl_sign_scheme_foreach
-  - xssl_supported_groups_foreach
-  - xssl_supported_sign_scheme_foreach
+
 ---
 
