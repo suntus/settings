@@ -1,0 +1,51 @@
+# require clang-format 10.0.0
+---
+# =====基础=======
+BasedOnStyle: Google
+Language: Cpp
+ColumnLimit: 80
+
+# =====缩进=======
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
+ContinuationIndentWidth: 4
+# 是否缩进define，以及#这个符号是在行开头还是跟着缩进
+IndentPPDirectives: BeforeHash
+# 不缩进 case 标签
+IndentCaseLabels: false
+
+# =====对齐相关=======
+# 尽量靠左对齐所有的\，而不是把\统一放到最右
+AlignEscapedNewlines: Left
+# 按照第一个操作符对齐，而不是用换行缩进对齐
+AlignOperands: true
+# 对齐尾部注释
+AlignTrailingComments: true
+AlignAfterOpenBracket: Align
+# 挨着的多行define尽量对齐
+AlignConsecutiveMacros: true
+
+
+# 大括号位置
+BreakBeforeBinaryOperators: Linux
+# 不重新排序头文件
+SortIncludes: false
+# 最大空1行
+MaxEmptyLinesToKeep: 1
+
+# 指针类型*总是靠近name，而不是type
+PointerAlignment: Right
+
+# 将foreach看做loop，而不是函数调用
+# 从下边两个命令中取到的
+# git grep -h '^#define [^[:space:]]*foreach[^[:space:]]*(' src/  \
+# | sed "s,^#define \([^[:space:]]*foreach[^[:space:]]*\)(.*$,  - \1,"  \
+# | sort | uniq
+# git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' src/  \
+# | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - \1,"  \
+# | sort | uniq
+ForEachMacros:
+  - cipher_suite_map_foreach
+
+

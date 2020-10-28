@@ -3,7 +3,7 @@
 # =====基础=======
 BasedOnStyle: Google
 Language: Cpp
-ColumnLimit: 80
+ColumnLimit: 100
 
 # =====缩进=======
 UseTab: Never
@@ -127,6 +127,23 @@ PointerAlignment: Right
 # | sort | uniq
 ForEachMacros:
   - cipher_suite_map_foreach
+  - xssl_groups_foreach
+  - xssl_sign_scheme_foreach
+  - xssl_supported_groups_foreach
+  - xssl_supported_sign_scheme_foreach
+  - cert_list_for_each
+  - cert_list_for_each_safe
+  - for_each_cert_store
+  - xssl_buf_queue_for_each
+  - xssl_buf_queue_for_each_from
+  - xssl_buf_queue_for_each_reverse
+  - xssl_buf_queue_for_each_safe
+  - xssl_buf_queue_for_each_safe_continue
+  - xssl_buf_queue_for_each_safe_from
+  - xssl_buf_queue_for_each_safe_reverse
+  - xssl_extensions_for_each
+  - xssl_suite_table_for_each
+  - xssl_suite_table_for_each_safe
 
 ---
 
