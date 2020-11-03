@@ -119,10 +119,10 @@ PointerAlignment: Right
 
 # 将foreach看做loop，而不是函数调用
 # 从下边两个命令中取到的
-# git grep -h '^#define [^[:space:]]*foreach[^[:space:]]*(' src/  \
+# git grep -h '^#define [^[:space:]]*foreach[^[:space:]]*(' '*.[ch]'  \
 # | sed "s,^#define \([^[:space:]]*foreach[^[:space:]]*\)(.*$,  - \1,"  \
 # | sort | uniq
-# git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' src/  \
+# git grep -h '^#define [^[:space:]]*for_each[^[:space:]]*(' '*.[ch]'  \
 # | sed "s,^#define \([^[:space:]]*for_each[^[:space:]]*\)(.*$,  - \1,"  \
 # | sort | uniq
 ForEachMacros:
@@ -144,6 +144,24 @@ ForEachMacros:
   - xssl_extensions_for_each
   - xssl_suite_table_for_each
   - xssl_suite_table_for_each_safe
-
+  - xhlist_for_each
+  - xhlist_for_each_entry
+  - xhlist_for_each_entry_continue
+  - xhlist_for_each_entry_from
+  - xhlist_for_each_entry_safe
+  - xhlist_for_each_safe
+  - xlist_for_each
+  - xlist_for_each_entry
+  - xlist_for_each_entry_continue
+  - xlist_for_each_entry_continue_reverse
+  - xlist_for_each_entry_from
+  - xlist_for_each_entry_reverse
+  - xlist_for_each_entry_safe
+  - xlist_for_each_entry_safe_continue
+  - xlist_for_each_entry_safe_from
+  - xlist_for_each_entry_safe_reverse
+  - xlist_for_each_prev
+  - xlist_for_each_prev_safe
+  - xlist_for_each_safe
 ---
 
